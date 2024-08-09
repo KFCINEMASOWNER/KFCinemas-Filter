@@ -229,19 +229,6 @@ async def quality(client: Client, query: CallbackQuery):
     btn.append([InlineKeyboardButton(text="⪻ ʙᴀᴄᴋ ᴛᴏ ᴍᴀɪɴ ᴘᴀɢᴇ", callback_data=f"next_{req}_{key}_{offset}")])  
     await query.message.edit_text("<b>ɪɴ ᴡʜɪᴄʜ ǫᴜᴀʟɪᴛʏ ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ, sᴇʟᴇᴄᴛ ʜᴇʀᴇ 👇</b>", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(btn))
 
-@Client.on_callback_query(filters.regex(r"^seasons"))
-async def seasons(client: Client, query: CallbackQuery):
-    _, key, req, offset = query.data.split("#")
-    if int(req) != query.from_user.id:
-        return await query.answer(f"Hello {query.from_user.first_name},\nDon't Click Other Results!", show_alert=True)
-    btn = [
-        [InlineKeyboardButton(text=SEASONS[i].title(), callback_data=f"seas_search#{SEASONS[i]}#{key}#{offset}#{req}"),
-         InlineKeyboardButton(text=SEASONS[i+1].title(), callback_data=f"seas_search#{SEASONS[i+1]}#{key}#{offset}#{req}")]
-        for i in range(0, len(SEASONS)-1, 2)
-    ]
-    btn.append([InlineKeyboardButton(text="⪻ ʙᴀᴄᴋ ᴛᴏ ᴍᴀɪɴ ᴘᴀɢᴇ", callback_data=f"next_{req}_{key}_{offset}")])  
-    await query.message.edit_text("<b>ɪɴ ᴡʜɪᴄʜ season ᴅᴏ ʏᴏᴜ ᴡᴀɴᴛ, sᴇʟᴇᴄᴛ ʜᴇʀᴇ 👇</b>", disable_web_page_preview=True, reply_markup=InlineKeyboardMarkup(btn))
-
 @Client.on_callback_query(filters.regex(r"^lang_search"))
 async def filter_languages_cb_handler(client: Client, query: CallbackQuery):
     _, lang, key, offset, req = query.data.split("#")
