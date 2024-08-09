@@ -207,35 +207,40 @@ async def get_shortlink(url, api, link):
     link = await shortzy.convert(link)
     return link
 
-async def verify_user(bot, userid, token):
-    user = await bot.get_users(userid)
-    if not await db.is_user_exist(user.id):
-        await db.add_user(user.id, user.first_name)
-        await bot.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(user.id, user.mention))
-    TOKENS[user.id] = {token: True}
-    tz = pytz.timezone('Asia/Kolkata')
-    today = date.today()
-    VERIFIED[user.id] = str(today)
+def get_readable_time(seconds):
+    periods = [('d', 86400), ('h', 3600), ('m', 60), ('s', 1)]
+    result = ''
+    for period_name, period_seconds in periods:
+        if seconds >= period_seconds:
+            period_value, seconds = divmod(seconds, period_seconds)
+            result += f'{int(period_value)}{period_name}'
+    return result
 
+def get_wish():
+    tz = pytz.timezone('Asia/kolkata')
+    time = datetime.now(tz)
+    now = time.strftime("%H")
+    if now < "12":
+        status = "ɢᴏᴏᴅ ᴍᴏʀɴɪɴɢ 🌞"
+    elif now < "18":
+        status = "ɢᴏᴏᴅ ᴀꜰᴛᴇʀɴᴏᴏɴ 🌗"
+    else:
+        status = "ɢᴏᴏᴅ ɴɪɢʜᴛ 🌘"
+    return status
+    
 async def get_seconds(time_string):
     def extract_value_and_unit(ts):
         value = ""
         unit = ""
-
         index = 0
         while index < len(ts) and ts[index].isdigit():
             value += ts[index]
             index += 1
-
-        unit = ts[index:].lstrip()
-
+        unit = ts[index:]
         if value:
             value = int(value)
-
         return value, unit
-
     value, unit = extract_value_and_unit(time_string)
-
     if unit == 's':
         return value
     elif unit == 'min':
@@ -250,21 +255,3 @@ async def get_seconds(time_string):
         return value * 86400 * 365
     else:
         return 0
-
-async def check_verification(bot, userid):
-    user = await bot.get_users(userid)
-    if not await db.is_user_exist(user.id):
-        await db.add_user(user.id, user.first_name)
-        await bot.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(user.id, user.mention))
-    tz = pytz.timezone('Asia/Kolkata')
-    today = date.today()
-    if user.id in VERIFIED.keys():
-        EXP = VERIFIED[user.id]
-        years, month, day = EXP.split('-')
-        comp = date(int(years), int(month), int(day))
-        if comp<today:
-            return False
-        else:
-            return True
-    else:
-        return False
