@@ -51,7 +51,14 @@ class Bot(Client):
         temp.U_NAME = me.username
         temp.B_NAME = me.first_name
         username = '@' + me.username
-        print(f"{me.first_name} is started now 🤗")
+        print(f"{me.first_name} is started now 🤗
+      ✅ ʙᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !
+
+📅 Dᴀᴛᴇ : <code>{}</code>
+⏰ Tɪᴍᴇ : <code>{}</code>
+🌐 Tɪᴍᴇᴢᴏɴᴇ : <code>Asia/Kolkata</code>
+
+Bʏ @Rajps33</b>")
         #groups = await db.get_all_chats_count()
         #for grp in groups:
             #await save_group_settings(grp['id'], 'fsub', "")
@@ -59,7 +66,14 @@ class Bot(Client):
         await app.setup()
         await web.TCPSite(app, "0.0.0.0", PORT).start()
         try:
-            await self.send_message(chat_id=LOG_CHANNEL, text=f"<b>{me.mention} Restarted! 🤖</b>")
+            await self.send_message(chat_id=LOG_CHANNEL, text=f"<b>{me.mention}
+            Restarted! 🤖
+
+      📅 Dᴀᴛᴇ : <code>{}</code>
+      ⏰ Tɪᴍᴇ : <code>{}</code>
+      🌐 Tɪᴍᴇᴢᴏɴᴇ : <code>Asia/Kolkata</code>
+
+        Bʏ @Rajps33</b>")
         except:
             print("Error - Make sure bot admin in LOG_CHANNEL, exiting now")
             exit()
@@ -70,7 +84,8 @@ class Bot(Client):
             print("Error - Make sure bot admin in BIN_CHANNEL, exiting now")
             exit()
         for admin in ADMINS:
-            await self.send_message(chat_id=admin, text=f"<b>✅ ʙᴏᴛ ʀᴇsᴛᴀʀᴛᴇᴅ</b>")
+            await self.send_message(chat_id=admin, 
+            text=f"<b>✅ ʙᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ</b>"""
 
     async def stop(self, *args):
         await super().stop()
