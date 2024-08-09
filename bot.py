@@ -51,14 +51,7 @@ class Bot(Client):
         temp.U_NAME = me.username
         temp.B_NAME = me.first_name
         username = '@' + me.username
-        print(f"{me.first_name} is started now 🤗
-      ✅ ʙᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ !
-
-📅 Dᴀᴛᴇ : <code>{}</code>
-⏰ Tɪᴍᴇ : <code>{}</code>
-🌐 Tɪᴍᴇᴢᴏɴᴇ : <code>Asia/Kolkata</code>
-
-Bʏ @Rajps33</b>")
+        print(f"{me.first_name} is started now 😘")
         #groups = await db.get_all_chats_count()
         #for grp in groups:
             #await save_group_settings(grp['id'], 'fsub', "")
