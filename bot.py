@@ -70,8 +70,7 @@ class Bot(Client):
             print("Error - Make sure bot admin in BIN_CHANNEL, exiting now")
             exit()
         for admin in ADMINS:
-            await self.send_message(chat_id=admin, 
-            text=f"<b>✅ ʙᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ</b>"
+            await self.send_message(chat_id=admin,text=f"<b>✅ ʙᴏᴛ Rᴇsᴛᴀʀᴛᴇᴅ</b>"
 
     async def stop(self, *args):
         await super().stop()
