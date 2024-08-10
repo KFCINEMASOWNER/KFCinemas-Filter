@@ -107,7 +107,7 @@ LINK_MODE = is_enabled("LINK_MODE", True)
 AUTO_FILTER = is_enabled('AUTO_FILTER', True)
 IMDB = is_enabled('IMDB', True)
 SPELL_CHECK = is_enabled("SPELL_CHECK", True)
-SHORTLINK = is_enabled('SHORTLINK', True)
+SHORTLINK = is_enabled('SHORTLINK', False)
 
 #premium info
 PAYMENT_QR = environ.get('PAYMENT_QR', 'https://i.postimg.cc/gjQs0XQ8/IMG-20240731-200423.png')
