@@ -80,7 +80,7 @@ I can't find the <b>{}</b> in my database! 🥲
 ©️ Powered by: <b>{message.chat.title}</b>"""
 
     FILE_CAPTION = """<i>[{file_name}]https://t.me/netfilixmo_ch</i>
-    ©️ ᴘᴏᴡᴇʀᴇᴅ ʙʏ : [Nefilix](https://t.me/n_flixmovie)</b>"""
+    ©️ ᴘᴏᴡᴇʀᴇᴅ ʙʏ : [Nefilix](https://t.me/n_flixmovie)</b>
 
 🚫 ᴘʟᴇᴀsᴇ ᴄʟɪᴄᴋ ᴏɴ ᴛʜᴇ ᴄʟᴏsᴇ ʙᴜᴛᴛᴏɴ ɪꜰ ʏᴏᴜ ʜᴀᴠᴇ sᴇᴇɴ ᴛʜᴇ ᴍᴏᴠɪᴇ 🚫"""
 
