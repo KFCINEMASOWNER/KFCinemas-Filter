@@ -49,12 +49,13 @@ async def start(client, message):
     
     if (len(message.command) != 2) or (len(message.command) == 2 and message.command[1] == 'start'):
         buttons = [[
-            InlineKeyboardButton("UPDATE CHANNEL", url=f'https://t.me/netfilixmo_ch{temp.U_NAME}?startgroup=start')
+            InlineKeyboardButton("+ ᴀᴅᴅ ᴍᴇ ᴛᴏ ʏᴏᴜʀ ɢʀᴏᴜᴘ +", url=f'http://t.me/{temp.U_NAME}?startgroup=start')
         ],[
             InlineKeyboardButton('ℹ️ ᴜᴘᴅᴀᴛᴇs', url=UPDATES_LINK),
             InlineKeyboardButton('🧑‍💻 sᴜᴘᴘᴏʀᴛ', url=SUPPORT_LINK)
         ],[
             InlineKeyboardButton('👨‍🚒 ʜᴇʟᴘ', callback_data='help'),
+            InlineKeyboardButton('🔎 sᴇᴀʀᴄʜ ɪɴʟɪɴᴇ', switch_inline_query_current_chat=''),
             InlineKeyboardButton('📚 ᴀʙᴏᴜᴛ', callback_data='about')
         ],[
             InlineKeyboardButton('💰 ᴇᴀʀɴ ᴜɴʟɪᴍɪᴛᴇᴅ ᴍᴏɴᴇʏ ʙʏ ʙᴏᴛ 💰', callback_data='earn')
@@ -163,12 +164,12 @@ async def start(client, message):
                     InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
                 ]]
 
-           msg = await client.send_cached_media(
-                 chat_id=message.from_user.id,
-                 file_id=file.file_id,
-                 caption=f_caption,
-                 protect_content=False,  # Protect content ko False set kiya gaya hai
-                 reply_markup=InlineKeyboardMarkup(btn)
+            msg = await client.send_cached_media(
+                chat_id=message.from_user.id,
+                file_id=file.file_id,
+                caption=f_caption,
+                protect_content=False if await db.has_premium_access(message.from_user.id) else True,
+                reply_markup=InlineKeyboardMarkup(btn)
             )
             file_ids.append(msg.id)
 
@@ -200,13 +201,12 @@ async def start(client, message):
             await message.reply(f"[{get_size(files.file_size)}] {files.file_name}\n\nYour file is ready, Please get using this link. 👍", reply_markup=InlineKeyboardMarkup(btn), protect_content=True)
             return
             
-    msg = await client.send_cached_media(
-          chat_id=message.from_user.id,
-          file_id=file.file_id,
-          caption=f_caption,
-          protect_content=False,  # Protect content ko False set kiya gaya hai
-          reply_markup=InlineKeyboardMarkup(btn)
-            )
+    CAPTION = settings['caption']
+    f_caption = CAPTION.format(
+        file_name = files.file_name,
+        file_size = get_size(files.file_size),
+        file_caption=files.caption
+    )
     if settings.get('is_stream', IS_STREAM):
         btn = [[
             InlineKeyboardButton("✛ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ ✛", callback_data=f"stream#{file_id}")
@@ -671,4 +671,3 @@ async def remove_fsub(client, message):
         return
     await save_group_settings(grp_id, 'fsub', None)
     await message.reply_text("<b>Successfully removed your force channel id...</b>")
-
