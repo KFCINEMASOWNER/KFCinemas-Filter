@@ -163,12 +163,12 @@ async def start(client, message):
                     InlineKeyboardButton('⁉️ ᴄʟᴏsᴇ ⁉️', callback_data='close_data')
                 ]]
 
-            msg = await client.send_cached_media(
-                chat_id=message.from_user.id,
-                file_id=file.file_id,
-                caption=f_caption,
-                protect_content=False if await db.has_premium_access(message.from_user.id) else True,
-                reply_markup=InlineKeyboardMarkup(btn)
+           msg = await client.send_cached_media(
+                 chat_id=message.from_user.id,
+                 file_id=file.file_id,
+                 caption=f_caption,
+                 protect_content=False,  # Protect content ko False set kiya gaya hai
+                 reply_markup=InlineKeyboardMarkup(btn)
             )
             file_ids.append(msg.id)
 
@@ -200,12 +200,13 @@ async def start(client, message):
             await message.reply(f"[{get_size(files.file_size)}] {files.file_name}\n\nYour file is ready, Please get using this link. 👍", reply_markup=InlineKeyboardMarkup(btn), protect_content=True)
             return
             
-    CAPTION = settings['caption']
-    f_caption = CAPTION.format(
-        file_name = files.file_name,
-        file_size = get_size(files.file_size),
-        file_caption=files.caption
-    )
+    msg = await client.send_cached_media(
+          chat_id=message.from_user.id,
+          file_id=file.file_id,
+          caption=f_caption,
+          protect_content=False,  # Protect content ko False set kiya gaya hai
+          reply_markup=InlineKeyboardMarkup(btn)
+            )
     if settings.get('is_stream', IS_STREAM):
         btn = [[
             InlineKeyboardButton("✛ ᴡᴀᴛᴄʜ & ᴅᴏᴡɴʟᴏᴀᴅ ✛", callback_data=f"stream#{file_id}")
